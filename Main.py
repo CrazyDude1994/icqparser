@@ -20,7 +20,7 @@ class Application:
         #self.ProcessErrors()
 
     def StartWork(self):
-        for i in range(1, self.parsePages + 1):
+        for i in range(201, self.parsePages + 1):
             try:
                 self.connection.request('GET', '/memberlist.php?do=getall&page='+ str(i)
                                          +'&ltr=&pp=100&order=asc&postslower=0&postsupper=0&sort=username&ausername=&homepage=&icq=&aim=&yahoo=&msn=&joindateafter=&joindatebefore=&lastpostafter=&lastpostbefore=')
@@ -31,6 +31,9 @@ class Application:
             except HTTPException as e:
                 self.errorsPage.append(i)
                 print "Error on", i, e
+                break
+            except KeyboardInterrupt:
+                print "Stopped"
                 break
                 
         for icq in self.ICQList:
@@ -55,7 +58,7 @@ class Application:
                     tempErrorsPage.append(i)
                     print "Error on", i
                 except:
-                    print ""
+                    print "Hi"
             self.errorsPage = tempErrorsPage[:]
             
         for icq in self.ICQList:
